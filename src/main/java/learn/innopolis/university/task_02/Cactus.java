@@ -47,7 +47,7 @@ public class Cactus implements WateringDate {
         if (getHumiditySensor() < 30) {
             return date.plusDays(2);
         }
-        return LocalDate.now();
+        return date.minusYears(300);
     }
 
     private LocalDate nextWateringDateInAutumn(LocalDate date) {

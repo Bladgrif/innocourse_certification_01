@@ -13,8 +13,8 @@ public class Main {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             Cactus cactus = new Cactus();
             LocalDate date = cactus.nextWateringDate(lastDate);
-            if (!LocalDate.now().equals(date)) {
-                System.out.println("Next watering date" + formatter.format(date));
+            if (!date.minusYears(300).equals(date)) { //date.minusYears(300) - This is an option if the humidity is high and watering is not needed
+                System.out.println("Next watering date: " + formatter.format(date));
             } else {
                 System.out.println("Humidity too high, no need to water");
             }
