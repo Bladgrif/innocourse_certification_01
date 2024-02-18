@@ -7,9 +7,16 @@ import java.time.format.DateTimeFormatter;
 import static learn.innopolis.university.task_02.Sensor.getHumiditySensor;
 
 public class Cactus implements WateringDate {
+
+    private int humidity = getHumiditySensor();
+
+    public int getHumidity() {
+        return humidity;
+    }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
     @Override
     public LocalDate nextWateringDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.parse(date, formatter);
         if (localDate.getMonthValue() == 12 || localDate.getMonthValue() <= 2) {
             return nextWateringDateInWinter(localDate);
@@ -44,19 +51,15 @@ public class Cactus implements WateringDate {
     }
 
     private LocalDate nextWateringDateInSummer(LocalDate date) {
-        if (getHumiditySensor() < 30) {
+        if (getHumidity() < 30) {
             return date.plusDays(2);
         }
-        return date.minusYears(300);
+        return LocalDate.parse("01.01.0001", formatter);
     }
 
     private LocalDate nextWateringDateInAutumn(LocalDate date) {
-        if (date.plusWeeks(1).getMonthValue() < 12) {
-            return date.plusWeeks(1);
-        } else {
-            return nextWateringDateInWinter(date);
-        }
+        return date.plusWeeks(1);
     }
-
-
 }
+
+
